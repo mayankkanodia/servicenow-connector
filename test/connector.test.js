@@ -48,8 +48,8 @@ describe('Connector', function () {
                         data_table_name: DATA_TABLE_NAME
 					},
 					devices: [{
-                        u_id: 'Reekoh123',
-                        u_name: 'Reekoh Device'
+                        _id: 'Reekoh123',
+                        name: 'Reekoh Device'
 					}]
 				}
 			}, function (error) {
@@ -63,8 +63,8 @@ describe('Connector', function () {
 			connector.send({
 				type: 'adddevice',
 				data: {
-                    u_id: 'Reekoh1234',
-                    u_name: 'Reekoh Device 2'
+					_id: 'Reekoh123',
+					name: 'Reekoh Device'
 				}
 			}, done);
 		});
@@ -75,8 +75,8 @@ describe('Connector', function () {
 			connector.send({
 				type: 'removedevice',
 				data: {
-                    u_id: 'Reekoh1234',
-                    u_name: 'Reekoh Device 2'
+					_id: 'Reekoh123',
+					name: 'Reekoh Device'
 				}
 			}, done);
 		});

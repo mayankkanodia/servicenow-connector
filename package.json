@@ -1,6 +1,6 @@
 {
   "name": "servicenow-connector",
-  "description": "ServiceNow Connector Plugin seed project for the Reekoh IoT Platform.",
+  "description": "ServiceNow Connector Plugin for the Reekoh IoT Platform.",
   "version": "1.0.0",
   "author": "Reekoh, Inc.",
   "main": "app.js",
@@ -11,6 +11,14 @@
     "type": "git",
     "url": "https://github.com/Reekoh/servicenow-connector"
   },
+  "dependencies": {
+    "async": "^2.0.0-rc.3",
+    "lodash.isarray": "^4.0.0",
+    "lodash.isempty": "^4.2.1",
+    "lodash.isplainobject": "^4.0.4",
+    "node-uuid": "^1.4.7",
+    "request": "^2.72.0"
+  }
   "devDependencies": {
     "gulp": "^3.9.1",
     "gulp-cli": "^1.2.1",
@@ -21,13 +29,5 @@
     "mocha": "^2.4.5",
     "should": "^8.3.0"
   },
-  "license": "LGPL-3.0",
-  "dependencies": {
-    "async": "^2.0.0-rc.3",
-    "lodash.isarray": "^4.0.0",
-    "lodash.isempty": "^4.2.1",
-    "lodash.isplainobject": "^4.0.4",
-    "node-uuid": "^1.4.7",
-    "request": "^2.72.0"
-  }
+  "license": "LGPL-3.0"
 }
