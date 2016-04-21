@@ -18,7 +18,7 @@
     "lodash.isplainobject": "^4.0.4",
     "node-uuid": "^1.4.7",
     "request": "^2.72.0"
-  }
+  },
   "devDependencies": {
     "gulp": "^3.9.1",
     "gulp-cli": "^1.2.1",
