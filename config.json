@@ -1,0 +1,38 @@
+{
+  "url": {
+    "label": "Instance URL",
+    "type": "String",
+    "required": true,
+    "help": "Your ServiceNow Instance URL."
+  },
+  "username": {
+	"label": "Username",
+	"type": "String",
+	"required": true,
+	"help": "Your ServiceNow Instance Username."
+  },
+  "password": {
+	"label": "Password",
+	"type": "Password",
+	"required": true,
+	"help": "Your ServiceNow Instace Password."
+  },
+  "device_table_name": {
+    "label": "Device Table Name",
+    "type": "String",
+    "required": true,
+    "help": "Your ServiceNow table name for devices."
+  },
+  "data_table_name": {
+    "label": "Data Table Name",
+    "type": "String",
+    "required": true,
+    "help": "Your ServiceNow table name for data."
+  },
+  "id_filed": {
+    "label": "Id Field (Optional)",
+    "type": "String",
+    "required": false,
+    "help": "The field in your input that will be the record ID in ServiceNow table."
+  }
+}
