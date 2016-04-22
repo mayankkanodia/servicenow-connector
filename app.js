@@ -1,36 +1,36 @@
 'use strict';
 
-var platform = require('./platform'),
+var uuid          = require('node-uuid'),
+	async         = require('async'),
+	isArray       = require('lodash.isarray'),
+	request       = require('request'),
+	isEmpty       = require('lodash.isempty'),
+	platform      = require('./platform'),
 	isPlainObject = require('lodash.isplainobject'),
-	isArray = require('lodash.isarray'),
-	request = require('request'),
-	async = require('async'),
-	isEmpty = require('lodash.isempty'),
-	uuid = require('node-uuid'),
 	config;
 
 let sendData = (data, callback) => {
-	var sysid = '';
+	let sysid = '';
 
-	if(!isEmpty(config.id_field)) {
+	if (!isEmpty(config.id_field)) {
 		sysid = data[config.id_field];
 		delete data[config.id_field];
 	}
 
-	if(isEmpty(sysid))
+	if (isEmpty(sysid))
 		sysid = uuid.v4();
 
 	data.sys_id = sysid;
-	
+
 	request.post({
-		url: config.url + '/api/now/table/' + config.data_table_name,
+		url: `${config.url}/api/now/table/${config.data_table_name}`,
 		auth: {
 			user: config.username,
 			pass: config.password
 		},
 		json: data
 	}, (error, response, body) => {
-		if(isEmpty(body.error)){
+		if (isEmpty(body.error)) {
 			platform.log(JSON.stringify({
 				title: 'Data inserted to ServiceNow table.',
 				data: data
@@ -43,14 +43,14 @@ let sendData = (data, callback) => {
 
 let addDevice = (device, callback) => {
 	request.post({
-		url: config.url + '/api/now/table/' + config.device_table_name,
+		url: `${config.url}/api/now/table/${config.device_table_name}`,
 		auth: {
 			user: config.username,
 			pass: config.password
 		},
 		json: device
 	}, (error, response, body) => {
-		if(isEmpty(body.error)){
+		if (isEmpty(body.error)) {
 			platform.log(JSON.stringify({
 				title: 'Device added to ServiceNow table.',
 				data: device
@@ -61,42 +61,22 @@ let addDevice = (device, callback) => {
 	});
 };
 
-let removeDevice = (device, callback) => {
-	request.del({
-		url : config.url + '/api/now/table/' + config.device_table_name + '/' + device.id,
-		auth: {
-			user: config.username,
-			pass: config.password
-		},
-		json: false
-	}, (error, response, body) => {
-		if(isEmpty(body.error)){
-			platform.log(JSON.stringify({
-				title: 'Device removed from ServiceNow table.',
-				data: device
-			}));
-		}
-
-		callback(body.error);
-	});
-};
-
 platform.on('data', function (data) {
-	if(isPlainObject(data)){
+	if (isPlainObject(data)) {
 		sendData(data, (error) => {
-			if(!isEmpty(error)) {
+			if (!isEmpty(error)) {
 				console.error(error);
-				platform.handleException(error);
+				platform.handleException(new Error(error));
 			}
 		});
 	}
-	else if(isArray(data)){
+	else if (isArray(data)) {
 		async.each(data, (datum, done) => {
 			sendData(datum, done);
 		}, (error) => {
-			if(!isEmpty(error)) {
+			if (!isEmpty(error)) {
 				console.error(error);
-				platform.handleException(error);
+				platform.handleException(new Error(error));
 			}
 		});
 	}
@@ -105,52 +85,53 @@ platform.on('data', function (data) {
 });
 
 platform.on('adddevice', function (device) {
-	device.sys_id = device.id;
-
-	addDevice(device, (error) => {
-		if(!isEmpty(error)) {
+	addDevice({
+		sys_id: device._id,
+		u_name: device.name
+	}, (error) => {
+		if (!isEmpty(error)) {
 			console.error(error);
-			platform.handleException(error);
+			platform.handleException(new Error(error));
 		}
 	});
 });
 
 platform.on('removedevice', function (device) {
-	removeDevice(device, (error) => {
-		if(!isEmpty(error)) {
+	request.del({
+		url: `${config.url}/api/now/table/${config.device_table_name}/${device._id}`,
+		auth: {
+			user: config.username,
+			pass: config.password
+		},
+		json: true
+	}, (error, response, body) => {
+		if (isEmpty(body.error)) {
+			platform.log(JSON.stringify({
+				title: 'Device removed from ServiceNow table.',
+				data: device
+			}));
+		}
+		else {
 			console.error(error);
-			platform.handleException(error);
+			platform.handleException(new Error(error));
 		}
 	});
 });
 
 platform.once('close', function () {
-	let d = require('domain').create();
-
-	d.once('error', function(error) {
-		console.error(error);
-		platform.handleException(error);
-		platform.notifyClose();
-		d.exit();
-	});
-
-	d.run(function() {
-		// TODO: Release all resources and close connections etc.
-		platform.notifyClose(); // Notify the platform that resources have been released.
-		d.exit();
-	});
+	platform.notifyClose();
 });
 
 platform.once('ready', function (options, registeredDevices) {
 	config = options;
 
-	if(config.url.endsWith('/'))
+	if (config.url.endsWith('/'))
 		config.url = config.url.slice(0, -1);
 
-	async.each(registeredDevices, function(datum, done){
+	async.each(registeredDevices, function (datum, done) {
 		addDevice(datum, done);
 	}, (error) => {
-		if(!isEmpty(error)) {
+		if (!isEmpty(error)) {
 			console.error(error);
 			platform.handleException(error);
 		}
