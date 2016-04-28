@@ -122,20 +122,11 @@ platform.once('close', function () {
 	platform.notifyClose();
 });
 
-platform.once('ready', function (options, registeredDevices) {
+platform.once('ready', function (options) {
 	config = options;
 
 	if (config.url.endsWith('/'))
 		config.url = config.url.slice(0, -1);
-
-	async.each(registeredDevices, function (datum, done) {
-		addDevice(datum, done);
-	}, (error) => {
-		if (!isEmpty(error)) {
-			console.error(error);
-			platform.handleException(error);
-		}
-	});
 
 	platform.notifyReady();
 	platform.log('ServiceNow Connector has been initialized.');
