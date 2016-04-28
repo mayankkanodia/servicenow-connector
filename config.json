@@ -29,10 +29,10 @@
     "required": true,
     "help": "Your ServiceNow table name for data."
   },
-  "id_filed": {
+  "id_field": {
     "label": "Id Field (Optional)",
     "type": "String",
     "required": false,
-    "help": "The field in your input that will be the record ID in ServiceNow table."
+    "help": "The field in your input data which will be the Record ID in ServiceNow Data Table."
   }
 }
