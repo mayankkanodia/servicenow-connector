@@ -46,11 +46,7 @@ describe('Connector', function () {
                         password: PASSWORD,
                         device_table_name: DEVICE_TABLE_NAME,
                         data_table_name: DATA_TABLE_NAME
-					},
-					devices: [{
-                        _id: 'Reekoh123',
-                        name: 'Reekoh Device'
-					}]
+					}
 				}
 			}, function (error) {
 				should.ifError(error);
