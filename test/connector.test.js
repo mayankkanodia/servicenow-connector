@@ -1,14 +1,15 @@
 'use strict';
 
-const URL = 'https://dev10130.service-now.com',
+const URL = 'https://dev12467.service-now.com/',
     USERNAME = 'admin',
-    PASSWORD = 'Feb?0593',
+    PASSWORD = 'achilles123',
     DEVICE_TABLE_NAME = 'u_devices',
     DATA_TABLE_NAME = 'u_data';
 
 var cp        = require('child_process'),
 	should    = require('should'),
 	deviceId1 = Date.now(),
+	uuid = require('node-uuid'),
 	connector;
 
 describe('Connector', function () {
@@ -83,7 +84,8 @@ describe('Connector', function () {
 			connector.send({
 				type: 'data',
 				data: {
-                    u_title: 'Test',
+					data_table_name: DATA_TABLE_NAME,
+                    u_title: uuid.v4(),
                     u_description: 'This is a test data from ServiceNow Connector Plugin.'
 				}
 			}, done);

@@ -1,7 +1,7 @@
 {
   "name": "servicenow-connector",
   "description": "ServiceNow Connector Plugin for the Reekoh IoT Platform.",
-  "version": "1.0.2",
+  "version": "1.0.3",
   "author": "Reekoh, Inc.",
   "main": "app.js",
   "scripts": {
@@ -13,6 +13,7 @@
   },
   "dependencies": {
     "async": "^2.0.0-rc.3",
+    "lodash.get": "^4.4.2",
     "lodash.isarray": "^4.0.0",
     "lodash.isempty": "^4.2.1",
     "lodash.isplainobject": "^4.0.4",
