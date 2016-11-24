@@ -7,6 +7,7 @@ var uuid          = require('node-uuid'),
 	isEmpty       = require('lodash.isempty'),
 	platform      = require('./platform'),
 	isPlainObject = require('lodash.isplainobject'),
+	get = require('lodash.get'),
 	config;
 
 let sendData = (data, callback) => {
@@ -30,14 +31,15 @@ let sendData = (data, callback) => {
 		},
 		json: data
 	}, (error, response, body) => {
-		if (isEmpty(body.error)) {
+		if (isEmpty(get(body, 'error'))) {
 			platform.log(JSON.stringify({
 				title: 'Data inserted to ServiceNow table.',
 				data: data
 			}));
+			callback();
 		}
-
-		callback(body.error);
+        else
+		    callback(body.error);
 	});
 };
 
