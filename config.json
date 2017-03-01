@@ -3,13 +3,18 @@
     "label": "Instance URL",
     "type": "String",
     "required": true,
-    "help": "Your ServiceNow Instance URL."
+    "help": "Your ServiceNow Instance URL.",
+    "maxLength": 50,
+    "format": {
+      "pattern": "^(([a-zA-Z0-9]|[a-zA-Z0-9][a-zA-Z0-9\\-]*[a-zA-Z0-9])\\.)*([A-Za-z0-9]|[A-Za-z0-9][A-Za-z0-9\\-]*[A-Za-z0-9])$"
+    }
   },
   "username": {
 	"label": "Username",
 	"type": "String",
 	"required": true,
-	"help": "Your ServiceNow Instance Username."
+	"help": "Your ServiceNow Instance Username.",
+    "maxLength": 50
   },
   "password": {
 	"label": "Password",
@@ -17,22 +22,25 @@
 	"required": true,
 	"help": "Your ServiceNow Instace Password."
   },
-  "device_table_name": {
+  "deviceTableName": {
     "label": "Device Table Name",
     "type": "String",
     "required": true,
-    "help": "Your ServiceNow table name for devices."
+    "help": "Your ServiceNow table name for devices.",
+    "maxLength": 50
   },
-  "data_table_name": {
+  "dataTableName": {
     "label": "Data Table Name",
     "type": "String",
     "required": true,
-    "help": "Your ServiceNow table name for data."
+    "help": "Your ServiceNow table name for data.",
+    "maxLength": 50
   },
-  "id_field": {
+  "idField": {
     "label": "Id Field (Optional)",
     "type": "String",
     "required": false,
-    "help": "The field in your input data which will be the Record ID in ServiceNow Data Table."
+    "help": "The field in your input data which will be the Record ID in ServiceNow Data Table.",
+    "maxLength": 50
   }
 }
