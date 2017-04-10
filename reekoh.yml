@@ -11,46 +11,46 @@ metadata:
   price: 0
   tags:
     - servicenow
-  config:
-    url:
-      label: Instance URL
-      type: String
-      required: true
-      help: Your ServiceNow Instance URL.
-      maxLength: 1000
-      format:
-        pattern: "^(([a-zA-Z0-9]|[a-zA-Z0-9][a-zA-Z0-9\\-]*[a-zA-Z0-9])\\.)*([A-Za-z0-9]|[A-Za-z0-9][A-Za-z0-9\\-]*[A-Za-z0-9])$"
-    username:
-      label: Username
-      type: String
-      required: true
-      help: Your ServiceNow Instance Username.
-      maxLength: 1000
-    password:
-      label: Password
-      type: Password
-      required: true
-      help: Your ServiceNow Instace Password.
-    deviceTableName:
-      label: Device Table Name
-      type: String
-      required: true
-      help: Your ServiceNow table name for devices.
-      maxLength: 1000
-    dataTableName:
-      label: Data Table Name
-      type: String
-      required: true
-      help: Your ServiceNow table name for data.
-      maxLength: 1000
-    idField:
-      label: Id Field (Optional)
-      type: String
-      required: false
-      help: The field in your input data which will be the Record ID in ServiceNow Data
-        Table.
-      maxLength: 1000
   release:
     version: 1.0.0
     notes: path/to/RELEASENOTESv1.0.0.md
     image: path/to/docker/image
+    config:
+        url:
+          label: Instance URL
+          type: String
+          required: true
+          help: Your ServiceNow Instance URL.
+          maxLength: 1000
+          format:
+            pattern: "^(([a-zA-Z0-9]|[a-zA-Z0-9][a-zA-Z0-9\\-]*[a-zA-Z0-9])\\.)*([A-Za-z0-9]|[A-Za-z0-9][A-Za-z0-9\\-]*[A-Za-z0-9])$"
+        username:
+          label: Username
+          type: String
+          required: true
+          help: Your ServiceNow Instance Username.
+          maxLength: 1000
+        password:
+          label: Password
+          type: Password
+          required: true
+          help: Your ServiceNow Instace Password.
+        deviceTableName:
+          label: Device Table Name
+          type: String
+          required: true
+          help: Your ServiceNow table name for devices.
+          maxLength: 1000
+        dataTableName:
+          label: Data Table Name
+          type: String
+          required: true
+          help: Your ServiceNow table name for data.
+          maxLength: 1000
+        idField:
+          label: Id Field (Optional)
+          type: String
+          required: false
+          help: The field in your input data which will be the Record ID in ServiceNow Data
+            Table.
+          maxLength: 1000
